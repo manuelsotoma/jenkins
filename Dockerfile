@@ -1,23 +1,23 @@
 FROM  jenkins
 
 #1 Install docker
-RUN apt-get update              && \
-    apt-get install             && \
-    apt-transport-https         && \
-    ca-certificates             && \
-    curl                        && \
-    gnupg2                      && \
-    software-properties-common
+RUN sudo apt-get update             && \
+    sudo apt-get install -y            \
+        apt-transport-https            \
+        ca-certificates                \
+        curl                           \
+        gnupg2                         \
+        software-properties-common
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 
-RUN add-apt-repository \
+RUN sudo add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/debian \
         $(lsb_release -cs) \
         stable"
 
-RUN apt-get update
-RUN apt-get install docker-ce
+RUN sudo apt-get update
+RUN sudo apt-get install docker-ce
 
 # Install docker-machine
 RUN base=https://github.com/docker/machine/releases/download/v0.14.0            && \
@@ -26,11 +26,8 @@ RUN base=https://github.com/docker/machine/releases/download/v0.14.0            
 
 # Install docker-compose
 RUN curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 
 # Make a docker group
-RUN apt-get update
-RUN apt-get install docker-
-
-RUN groupadd docker
-RUN usermod -aG docker $USER
+RUN sudo groupadd docker
+RUN sudo usermod -aG docker $USER

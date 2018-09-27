@@ -32,6 +32,6 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-c
 
 # Make a docker group
 #RUN groupadd docker
-RUN usermod -aG docker jenkins
+#RUN usermod -aG docker jenkins
 
-USER jenkins
+#USER jenkins
